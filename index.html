@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <link rel="stylesheet" href="./pages/index.css" />
+    </head>
+    <body class="root">
+        <div class="page">
+            <header class="header">
+                <img
+                    class="header__logo"
+                    src="./images/header-logo.png"
+                    alt="Местро"
+                />
+                <hr class="header__line" />
+            </header>
+
+            <main class="content">
+                <section class="profile">
+                    <div class="profile__container">
+                        <img
+                            class="profile__photo"
+                            src="./images/profile-photo.png"
+                            alt="Фотография профиля"
+                        />
+                        <div class="profile__info">
+                            <div class="profile__heading-container">
+                                <h1 class="profile__heading">Жак-Ив Кусто</h1>
+                                <button
+                                    type="button"
+                                    class="profile__button profile__button_action_edit"
+                                >
+                                    <img
+                                        class="button-image"
+                                        src="./images/icon-edit.png"
+                                        alt="редактировать"
+                                    />
+                                </button>
+                            </div>
+                            <p class="profile__desc">Исследователь океана</p>
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        class="profile__button profile__button_action_add"
+                    >
+                        <img
+                            src="./images/icon-add.png"
+                            alt="добавить"
+                        />
+                    </button>
+                </section>
+
+                <section class="elements">
+                    <div class="element">
+                        <img
+                            src="./images/image-karachaevsk.png"
+                            alt="Вид на Карачаевск"
+                            class="element__image"
+                        />
+                        <div class="element__group">
+                            <h2 class="element__title">Карачаевск</h2>
+                            <button class="element__like"></button>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <img
+                            src="./images/image-elbrus.png"
+                            alt="Вид на Карачаевск"
+                            class="element__image"
+                        />
+                        <div class="element__group">
+                            <h2 class="element__title">Гора Эльбрус</h2>
+                            <button class="element__like"></button>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <img
+                            src="./images/image-dombai.png"
+                            alt="Вид на Карачаевск"
+                            class="element__image"
+                        />
+                        <div class="element__group">
+                            <h2 class="element__title">Домбай</h2>
+                            <button class="element__like"></button>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <img
+                            src="./images/image-elbrus.png"
+                            alt="Вид на Карачаевск"
+                            class="element__image"
+                        />
+                        <div class="element__group">
+                            <h2 class="element__title">Гора Эльбрус</h2>
+                            <button class="element__like"></button>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <img
+                            src="./images/image-dombai.png"
+                            alt="Вид на Карачаевск"
+                            class="element__image"
+                        />
+                        <div class="element__group">
+                            <h2 class="element__title">Домбай</h2>
+                            <button class="element__like"></button>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <img
+                            src="./images/image-karachaevsk.png"
+                            alt="Вид на Карачаевск"
+                            class="element__image"
+                        />
+                        <div class="element__group">
+                            <h2 class="element__title">Карачаево-Чаевск</h2>
+                            <button class="element__like"></button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <h2 class="footer__copyright">© 2020 Mesto Russia</h2>
+            </footer>
+        </div>
+        <div class="popup popup_type_editor-profile">
+            <div class="popup__container">
+                <button class="popup__close">
+                    <img
+                        class="popup__close-img"
+                        src="./images/icon-close.png"
+                        alt="закрыть"
+                    />
+                </button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form class="form form_action_edit-profile">
+                    <input
+                        name="name"
+                        class="form__input form__input_type_name"
+                        type="text"
+                    />
+                    <input
+                        name="desc"
+                        class="form__input form__input_type_desc"
+                        type="text"
+                    />
+
+                    <button class="form__submit" type="submit">
+                        Сохранить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </body>
+
+    <script src="./scripts/index.js"></script>
+</html>

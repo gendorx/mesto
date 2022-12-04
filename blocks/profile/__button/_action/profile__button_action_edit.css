@@ -1,0 +1,14 @@
+.profile__button_action_edit {
+    max-width: 24px;
+    max-height: 24px;
+    margin: 15px 0 0 18px;
+}
+
+@media screen and (max-width: 879px) {
+    .profile__button_action_edit {
+        margin: 0 0 0 10px;
+        max-width: 18px;
+        max-height: 18px;
+        align-self: center;
+    }
+}
