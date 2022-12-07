@@ -7,11 +7,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: 7px;
 }
 
 @media screen and (max-width: 879px) {
     .profile__desc {
-        margin-top: 14px;
+        margin-top: 8px;
         font-size: 14px;
         line-height: 17px;
         text-align: center;

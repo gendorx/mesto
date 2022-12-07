@@ -1,7 +1,7 @@
 .popup__close {
     background: none;
-    border: 1px solid #000;
     position: absolute;
+    border: none;
     top: -40px;
     right: -40px;
     max-width: 32px;

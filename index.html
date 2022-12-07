@@ -13,10 +13,9 @@
             <header class="header">
                 <img
                     class="header__logo"
-                    src="./images/header-logo.png"
+                    src="./images/header-logo.svg"
                     alt="Местро"
                 />
-                <hr class="header__line" />
             </header>
 
             <main class="content">
@@ -36,7 +35,7 @@
                                 >
                                     <img
                                         class="button-image"
-                                        src="./images/icon-edit.png"
+                                        src="./images/icon-edit.svg"
                                         alt="редактировать"
                                     />
                                 </button>
@@ -49,14 +48,15 @@
                         class="profile__button profile__button_action_add"
                     >
                         <img
-                            src="./images/icon-add.png"
+                            class="button-image"
+                            src="./images/icon-add.svg"
                             alt="добавить"
                         />
                     </button>
                 </section>
 
                 <section class="elements">
-                    <div class="element">
+                    <article class="element">
                         <img
                             src="./images/image-karachaevsk.png"
                             alt="Вид на Карачаевск"
@@ -64,11 +64,11 @@
                         />
                         <div class="element__group">
                             <h2 class="element__title">Карачаевск</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img
                             src="./images/image-elbrus.png"
                             alt="Вид на Карачаевск"
@@ -76,11 +76,11 @@
                         />
                         <div class="element__group">
                             <h2 class="element__title">Гора Эльбрус</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img
                             src="./images/image-dombai.png"
                             alt="Вид на Карачаевск"
@@ -88,11 +88,11 @@
                         />
                         <div class="element__group">
                             <h2 class="element__title">Домбай</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img
                             src="./images/image-elbrus.png"
                             alt="Вид на Карачаевск"
@@ -100,11 +100,11 @@
                         />
                         <div class="element__group">
                             <h2 class="element__title">Гора Эльбрус</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img
                             src="./images/image-dombai.png"
                             alt="Вид на Карачаевск"
@@ -112,11 +112,11 @@
                         />
                         <div class="element__group">
                             <h2 class="element__title">Домбай</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="element">
+                    <article class="element">
                         <img
                             src="./images/image-karachaevsk.png"
                             alt="Вид на Карачаевск"
@@ -124,14 +124,14 @@
                         />
                         <div class="element__group">
                             <h2 class="element__title">Карачаево-Чаевск</h2>
-                            <button class="element__like"></button>
+                            <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
                 </section>
             </main>
 
             <footer class="footer">
-                <h2 class="footer__copyright">© 2020 Mesto Russia</h2>
+                <p class="footer__copyright">© 2020 Mesto Russia</p>
             </footer>
         </div>
         <div class="popup popup_type_editor-profile">
@@ -139,12 +139,12 @@
                 <button class="popup__close">
                     <img
                         class="popup__close-img"
-                        src="./images/icon-close.png"
+                        src="./images/icon-close.svg"
                         alt="закрыть"
                     />
                 </button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="form form_action_edit-profile">
+                <form class="form form_action_edit-profile" name="editProfile">
                     <input
                         name="name"
                         class="form__input form__input_type_name"
