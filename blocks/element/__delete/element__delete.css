@@ -1,0 +1,11 @@
+.element__delete {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    max-width: 18px;
+    max-height: 19px;
+    padding: 0;
+    cursor: pointer;
+}
