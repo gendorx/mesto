@@ -5,7 +5,6 @@
     max-height: 361px;
     position: relative;
     transition: .3s ease;
-    cursor: zoom-in;
 }
 
 .element:hover {
