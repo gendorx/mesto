@@ -16,8 +16,8 @@ const builderElementForm = document.querySelector(".form_action_add-element");
 
 const inputNameProfile = document.querySelector(".form__input_type_name");
 const inputDescProfile = document.querySelector(".form__input_type_desc");
-const inputNamePlace = document.querySelector(".form__input_type_name");
-const inputUrlPlace = document.querySelector(".form__input_type_desc");
+const inputNamePlace = document.querySelector(".form__input_type_title-place");
+const inputUrlPlace = document.querySelector(".form__input_type_url-place");
 
 const cardsElements = document.querySelector(".elements");
 const popupButtonsClose = document.querySelectorAll(".popup__close");
