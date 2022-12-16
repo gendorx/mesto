@@ -3,6 +3,8 @@
     height: 50px;
     border-width: 2px;
     padding: 12px 60px;
+    background-image: url('../../../../images/icon-add.svg');
+    background-size: 22px 22px;
 }
 
 @media screen and (max-width: 879px) {
@@ -11,5 +13,6 @@
         max-width: 282px;
         margin: 32px auto 0;
         padding: 15px 0;
+        background-size: 16px 16px;
     }
 }

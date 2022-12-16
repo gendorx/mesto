@@ -7,6 +7,10 @@
         <title>Mesto</title>
 
         <link rel="stylesheet" href="./pages/index.css" />
+
+        <!-- Scripts defer -->
+        <script defer src="./scripts/cards.js"></script>
+        <script defer src="./scripts/index.js"></script>
     </head>
     <body class="root">
         <div class="page">
@@ -31,13 +35,8 @@
                                 <h1 class="profile__heading">Жак-Ив Кусто</h1>
                                 <button
                                     type="button"
-                                    class="profile__button profile__button_action_edit"
+                                    class="profile__button button-icon button-icon_type_edit profile__button_action_edit"
                                 >
-                                    <img
-                                        class="button-image"
-                                        src="./images/icon-edit.svg"
-                                        alt="редактировать"
-                                    />
                                 </button>
                             </div>
                             <p class="profile__desc">Исследователь океана</p>
@@ -45,93 +44,14 @@
                     </div>
                     <button
                         type="button"
-                        class="profile__button profile__button_action_add"
-                    >
-                        <img
-                            class="button-image"
-                            src="./images/icon-add.svg"
-                            alt="добавить"
-                        />
-                    </button>
+                        class="profile__button button-icon button-icon_type_add profile__button_action_add"
+                    ></button>
                 </section>
 
                 <section class="elements">
-                    <!-- <article class="element">
-                        <img
-                            src="./images/image-karachaevsk.png"
-                            alt="Вид на Карачаевск"
-                            class="element__image"
-                        />
-                        <div class="element__group">
-                            <h2 class="element__title">Карачаевск</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-
-                    <article class="element">
-                        <img
-                            src="./images/image-elbrus.png"
-                            alt="Вид на Карачаевск"
-                            class="element__image"
-                        />
-                        <div class="element__group">
-                            <h2 class="element__title">Гора Эльбрус</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-
-                    <article class="element">
-                        <img
-                            src="./images/image-dombai.png"
-                            alt="Вид на Карачаевск"
-                            class="element__image"
-                        />
-                        <div class="element__group">
-                            <h2 class="element__title">Домбай</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-
-                    <article class="element">
-                        <img
-                            src="./images/image-elbrus.png"
-                            alt="Вид на Карачаевск"
-                            class="element__image"
-                        />
-                        <div class="element__group">
-                            <h2 class="element__title">Гора Эльбрус</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-
-                    <article class="element">
-                        <img
-                            src="./images/image-dombai.png"
-                            alt="Вид на Карачаевск"
-                            class="element__image"
-                        />
-                        <div class="element__group">
-                            <h2 class="element__title">Домбай</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-
-                    <article class="element">
-                        <img
-                            src="./images/image-karachaevsk.png"
-                            alt="Вид на Карачаевск"
-                            class="element__image"
-                        />
-                        <div class="element__group">
-                            <h2 class="element__title">Карачаево-Чаевск</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article> -->
                     <template id="element-template">
                         <article class="element">
-                            <button class="element__delete">
-                                <img class="button-image" src="./images/icon-delete.svg" alt="удалить картинку">
-                            </button>
+                            <button class="element__delete button-icon button-icon_type_delete"></button>
                             <img
                                 src="#"
                                 alt="Изображение города"
@@ -155,25 +75,21 @@
         </div>
         <div class="popup popup_type_editor-profile">
             <div class="popup__container">
-                <button class="popup__close">
-                    <img
-                        class="popup__close-img"
-                        src="./images/icon-close.svg"
-                        alt="закрыть"
-                    />
-                </button>
+                <button class="popup__close button-icon button-icon_type_close"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form class="form form_action_edit-profile" name="editProfile">
                     <input
                         name="name"
                         class="form__input form__input_type_name"
                         type="text"
+                        required
                         placeholder="Имя"
                     />
                     <input
                         name="desc"
                         class="form__input form__input_type_desc"
                         type="text"
+                        required
                         placeholder="Описание"
                     />
 
@@ -185,50 +101,35 @@
         </div>
         <div class="popup popup_type_add-element">
             <div class="popup__container">
-                <button class="popup__close">
-                    <img
-                        class="popup__close-img"
-                        src="./images/icon-close.svg"
-                        alt="закрыть"
-                    />
-                </button>
+                <button class="popup__close button-icon button-icon_type_close"></button>
                 <h2 class="popup__title">Новое место</h2>
                 <form class="form form_action_add-element" name="addPlace">
                     <input
                         name="name"
-                        class="form__input form__input_type_name"
+                        class="form__input form__input_type_title-place"
                         type="text"
                         required
                         placeholder="Название"
                     />
                     <input
                         name="link"
-                        class="form__input form__input_type_url"
+                        class="form__input form__input_type_url-place"
                         type="url"
                         required
                         placeholder="Ссылка на картинку"
                     />
 
-                    <button class="form__submit" type="submit">
-                        Создать
-                    </button>
+                    <button class="form__submit" type="submit">Создать</button>
                 </form>
             </div>
         </div>
 
         <div class="popup popup_type_view-image">
             <figure class="popup__image-container">
-                <button class="popup__close">
-                    <img
-                        class="popup__close-img"
-                        src="./images/icon-close.svg"
-                        alt="закрыть"
-                    />
-                </button>
-                <img class="popup__big-picture" src="#" alt="#">
+                <button class="popup__close button-icon button-icon_type_close"></button>
+                <img class="popup__big-picture" src="#" alt="#" />
                 <figcaption class="popup__picture-desc"></figcaption>
             </figure>
         </div>
-        <script src="./scripts/index.js"></script>
     </body>
 </html>

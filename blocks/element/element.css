@@ -4,4 +4,10 @@
     box-sizing: border-box;
     max-height: 361px;
     position: relative;
+    transition: .3s ease;
+    cursor: zoom-in;
+}
+
+.element:hover {
+    transform: scale(1.03);
 }
