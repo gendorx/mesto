@@ -36,10 +36,8 @@ function getDataFromForm(form) {
     return Object.fromEntries(new FormData(form));
 }
 
-function clearInputs(array) {
-    array.forEach((item) => {
-        item.value = "";
-    });
+function resetForm(form) {
+    form.reset()
 }
 
 function closePopup(popup) {
@@ -71,9 +69,9 @@ function viewPicture({ name, link }) {
     openPopup(popupViewerPicture);
 }
 
-function closeButton(item) {
-    const popup = item.closest(".popup");
-    item.addEventListener("click", () => closePopup(popup));
+function initCloseButton(closeButton) {
+    const popup = closeButton.closest(".popup");
+    closeButton.addEventListener("click", () => closePopup(popup));
 }
 
 /** Функции обработки форм */
@@ -93,12 +91,12 @@ function submitBuilderElement(e) {
     e.preventDefault();
     renderCard(getDataFromForm(e.target));
     closePopup(formBuilderElement);
-    clearInputs([inputNamePlace, inputUrlPlace]);
+    resetForm(e.target);
 }
 
 /** Карточки */
 
-function addCard({ name, link }) {
+function createCard({ name, link }) {
     const element = templateCard.cloneNode(true);
     const image = element.querySelector(".element__image");
     const title = element.querySelector(".element__title");
@@ -121,7 +119,7 @@ function addCard({ name, link }) {
 }
 
 function renderCard(cardInfo) {
-    cardsElements.prepend(addCard(cardInfo));
+    cardsElements.prepend(createCard(cardInfo));
 }
 
 /**
@@ -137,4 +135,4 @@ builderElementForm.addEventListener("submit", submitBuilderElement);
  */
 
 initialCards.reverse().forEach(renderCard);
-popupButtonsClose.forEach(closeButton);
+popupButtonsClose.forEach(initCloseButton);
