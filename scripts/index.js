@@ -11,8 +11,9 @@ const formBuilderElement = document.querySelector(".popup_type_add-element");
 const popupViewerPicture = document.querySelector(".popup_type_view-image");
 const bigPicture = popupViewerPicture.querySelector(".popup__big-picture");
 
-const editorProfileForm = document.querySelector(".form_action_edit-profile");
-const builderElementForm = document.querySelector(".form_action_add-element");
+const { forms } = document;
+const editorProfileForm = forms.editProfile;
+const builderElementForm = forms.addPlace;
 
 const inputNameProfile = document.querySelector(".form__input_type_name");
 const inputDescProfile = document.querySelector(".form__input_type_desc");
@@ -59,6 +60,7 @@ function openEditorProfile() {
 
 function openBuilderPopup() {
     openPopup(formBuilderElement);
+    disableSubmitButton(builderElementForm);
 }
 
 function viewPicture({ name, link }) {
@@ -79,10 +81,10 @@ function initCloseButton(closeButton) {
 function submitEditorProfile(e) {
     e.preventDefault();
 
-    const { name, desc } = getDataFromForm(e.target);
+    const { name, about } = getDataFromForm(e.target);
 
     profileTitle.textContent = name;
-    profileDesc.textContent = desc;
+    profileDesc.textContent = about;
 
     closePopup(formEditorProfile);
 }

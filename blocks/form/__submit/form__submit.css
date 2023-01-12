@@ -12,7 +12,7 @@
     transition: opacity linear 0.1s;
 }
 
-.form__submit:hover {
+.form__submit:not(.form__submit_disabled):hover {
     opacity: 0.8;
 }
 
