@@ -1,5 +1,5 @@
 .form__input-error {
-    display: block;
+    display: none;
     position: absolute;
     font-weight: 400;
     font-size: 12px;

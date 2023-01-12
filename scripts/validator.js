@@ -1,70 +1,85 @@
-function showInputError(formElement, inputElement) {
+// @ts-nocheck
+
+function showInputError(
+    formElement,
+    inputElement,
+    { formErrorActiveClass, formInputInvalidClass }
+) {
     let errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    errorElement.classList.add("form__input-error_show");
+    errorElement.classList.add(formErrorActiveClass);
     errorElement.textContent = inputElement.validationMessage;
-    inputElement.classList.add("form__input_invalid");
+    inputElement.classList.add(formInputInvalidClass);
 }
 
-function hideInputError(formElement, inputElement) {
-    let errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+function hideInputError(
+    formElement,
+    inputElement,
+    { formErrorActiveClass, formInputInvalidClass }
+) {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    errorElement.classList.remove("form__input-error_show");
+    errorElement.classList.remove(formErrorActiveClass);
     errorElement.textContent = "";
-    inputElement.classList.remove("form__input_invalid");
+    inputElement.classList.remove(formInputInvalidClass);
 }
 
-function checkInputValidation(formElement, inputElement) {
+function checkInputValidation(formElement, inputElement, config) {
     if (inputElement.validity.valid)
-        return hideInputError(formElement, inputElement);
+        return hideInputError(formElement, inputElement, config);
 
-    return showInputError(formElement, inputElement);
+    return showInputError(formElement, inputElement, config);
 }
 
-function enableSubmitButton(formElement) {
-    let submitButton = formElement.querySelector(".form__submit");
+function enableSubmitButton(
+    formElement,
+    { formSubmitSelector, formSubmitInactiveClass }
+) {
+    let submitButton = formElement.querySelector(formSubmitSelector);
 
     submitButton.disabled = false;
-    submitButton.classList.remove("form__submit_disabled");
+    submitButton.classList.remove(formSubmitInactiveClass);
 }
 
-function disableSubmitButton(formElement) {
-    let submitButton = formElement.querySelector(".form__submit");
+function disableSubmitButton(
+    formElement,
+    { formSubmitSelector, formSubmitInactiveClass }
+) {
+    let submitButton = formElement.querySelector(formSubmitSelector);
 
     submitButton.disabled = true;
-    submitButton.classList.add("form__submit_disabled");
+    submitButton.classList.add(formSubmitInactiveClass);
 }
 
 function checkInputsForm(inputList) {
-    console.log(inputList)
     return inputList.some((a) => !a.validity.valid);
 }
 
-function toggleSubmitButton(formElement, inputList) {
-    console.log(checkInputsForm(inputList));
+function toggleSubmitButton(formElement, inputList, config) {
     return checkInputsForm(inputList)
-        ? disableSubmitButton(formElement)
-        : enableSubmitButton(formElement);
+        ? disableSubmitButton(formElement, config)
+        : enableSubmitButton(formElement, config);
 }
 
-function setEventListenersForm(formElement) {
-    const listInputs = Array.from(formElement.querySelectorAll(".form__input"));
+function setEventListenersForm(formElement, { formInputSelector, ...config }) {
+    const listInputs = Array.from(
+        formElement.querySelectorAll(formInputSelector)
+    );
 
     listInputs.forEach((inputElement) => {
         inputElement.addEventListener("input", () => {
-            console.log('input');
-            checkInputValidation(formElement, inputElement);
-            toggleSubmitButton(formElement, listInputs);
+            checkInputValidation(formElement, inputElement, config);
+            toggleSubmitButton(formElement, listInputs, config);
         });
     });
 }
 
-function enableValidationForms(formSelector) {
+function enableValidationForms({ formSelector, ...config }) {
     const formList = Array.from(document.querySelectorAll(formSelector));
 
     formList.forEach((formElement) => {
-        setEventListenersForm(formElement);
+        setEventListenersForm(formElement, config);
     });
 }
 
-enableValidationForms('.form');
+enableValidationForms(validatorConfig);

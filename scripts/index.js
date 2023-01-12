@@ -6,10 +6,12 @@ const profileAddButton = document.querySelector(".profile__button_action_add");
 const profileTitle = document.querySelector(".profile__heading");
 const profileDesc = document.querySelector(".profile__desc");
 
+const popups = document.querySelectorAll(".popup");
 const formEditorProfile = document.querySelector(".popup_type_editor-profile");
 const formBuilderElement = document.querySelector(".popup_type_add-element");
 const popupViewerPicture = document.querySelector(".popup_type_view-image");
 const bigPicture = popupViewerPicture.querySelector(".popup__big-picture");
+const bigPictureImageDesc = bigPicture.querySelector(".popup__picture-desc");
 
 const { forms } = document;
 const editorProfileForm = forms.editProfile;
@@ -38,7 +40,7 @@ function getDataFromForm(form) {
 }
 
 function resetForm(form) {
-    form.reset()
+    form.reset();
 }
 
 function closePopup(popup) {
@@ -47,6 +49,13 @@ function closePopup(popup) {
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
+}
+
+function closeOpenedPopup() {
+    const openedPopup = document.querySelector(".popup_opened");
+    if (!openedPopup) return;
+
+    closePopup(openedPopup);
 }
 
 /** Функции по модальным окнам */
@@ -65,8 +74,7 @@ function openBuilderPopup() {
 
 function viewPicture({ name, link }) {
     bigPicture.src = link;
-    document.querySelector(".popup__picture-desc").textContent =
-        bigPicture.alt = name;
+    bigPictureImageDesc.textContent = bigPicture.alt = name;
 
     openPopup(popupViewerPicture);
 }
@@ -74,6 +82,14 @@ function viewPicture({ name, link }) {
 function initCloseButton(closeButton) {
     const popup = closeButton.closest(".popup");
     closeButton.addEventListener("click", () => closePopup(popup));
+}
+
+function setEventListenersPopup(popup) {
+    popup.addEventListener("click", (evt) => {
+        if (evt.currentTarget === evt.target) {
+            closeOpenedPopup();
+        }
+    });
 }
 
 /** Функции обработки форм */
@@ -124,6 +140,16 @@ function renderCard(cardInfo) {
     cardsElements.prepend(createCard(cardInfo));
 }
 
+/** Функции обработки клавиш клавиатуры */
+
+function listenPressedButtonKeyboard(evt) {
+    if (evt.key == "Escape") return pressedEscapeButtonKeyboard();
+}
+
+function pressedEscapeButtonKeyboard() {
+    closeOpenedPopup();
+}
+
 /**
  *  Обработчики
  */
@@ -131,6 +157,7 @@ profileEditButton.addEventListener("click", openEditorProfile);
 profileAddButton.addEventListener("click", openBuilderPopup);
 editorProfileForm.addEventListener("submit", submitEditorProfile);
 builderElementForm.addEventListener("submit", submitBuilderElement);
+document.addEventListener("keydown", listenPressedButtonKeyboard);
 
 /**
  *  Инициализация страницы
@@ -138,3 +165,4 @@ builderElementForm.addEventListener("submit", submitBuilderElement);
 
 initialCards.reverse().forEach(renderCard);
 popupButtonsClose.forEach(initCloseButton);
+popups.forEach(setEventListenersPopup);

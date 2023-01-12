@@ -11,9 +11,3 @@
     line-height: 17px;
     width: 100%;
 }
-
-@media screen and (max-width: 879px) {
-    .form__input:first-of-type {
-        margin-top: 75px;
-    }
-}
