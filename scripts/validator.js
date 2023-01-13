@@ -5,7 +5,7 @@ function showInputError(
     inputElement,
     { formErrorActiveClass, formInputInvalidClass }
 ) {
-    let errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
     errorElement.classList.add(formErrorActiveClass);
     errorElement.textContent = inputElement.validationMessage;
@@ -35,7 +35,7 @@ function enableSubmitButton(
     formElement,
     { formSubmitSelector, formSubmitInactiveClass }
 ) {
-    let submitButton = formElement.querySelector(formSubmitSelector);
+    const submitButton = formElement.querySelector(formSubmitSelector);
 
     submitButton.disabled = false;
     submitButton.classList.remove(formSubmitInactiveClass);
@@ -45,7 +45,7 @@ function disableSubmitButton(
     formElement,
     { formSubmitSelector, formSubmitInactiveClass }
 ) {
-    let submitButton = formElement.querySelector(formSubmitSelector);
+    const submitButton = formElement.querySelector(formSubmitSelector);
 
     submitButton.disabled = true;
     submitButton.classList.add(formSubmitInactiveClass);

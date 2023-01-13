@@ -11,7 +11,7 @@ const formEditorProfile = document.querySelector(".popup_type_editor-profile");
 const formBuilderElement = document.querySelector(".popup_type_add-element");
 const popupViewerPicture = document.querySelector(".popup_type_view-image");
 const bigPicture = popupViewerPicture.querySelector(".popup__big-picture");
-const bigPictureImageDesc = bigPicture.querySelector(".popup__picture-desc");
+const bigPictureImageDesc = popupViewerPicture.querySelector(".popup__picture-desc");
 
 const { forms } = document;
 const editorProfileForm = forms.editProfile;
@@ -44,10 +44,12 @@ function resetForm(form) {
 }
 
 function closePopup(popup) {
+    document.removeEventListener("keydown", closePopupOnEscape)
     popup.classList.remove("popup_opened");
 }
 
 function openPopup(popup) {
+    document.addEventListener("keydown", closePopupOnEscape);
     popup.classList.add("popup_opened");
 }
 
@@ -69,7 +71,7 @@ function openEditorProfile() {
 
 function openBuilderPopup() {
     openPopup(formBuilderElement);
-    disableSubmitButton(builderElementForm);
+    disableSubmitButton(builderElementForm, validatorConfig);
 }
 
 function viewPicture({ name, link }) {
@@ -142,12 +144,10 @@ function renderCard(cardInfo) {
 
 /** Функции обработки клавиш клавиатуры */
 
-function listenPressedButtonKeyboard(evt) {
-    if (evt.key == "Escape") return pressedEscapeButtonKeyboard();
-}
-
-function pressedEscapeButtonKeyboard() {
-    closeOpenedPopup();
+function closePopupOnEscape(evt) {
+    if (evt.key == "Escape") {
+        closeOpenedPopup();
+    }
 }
 
 /**
@@ -157,7 +157,6 @@ profileEditButton.addEventListener("click", openEditorProfile);
 profileAddButton.addEventListener("click", openBuilderPopup);
 editorProfileForm.addEventListener("submit", submitEditorProfile);
 builderElementForm.addEventListener("submit", submitBuilderElement);
-document.addEventListener("keydown", listenPressedButtonKeyboard);
 
 /**
  *  Инициализация страницы
