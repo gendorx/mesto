@@ -31,7 +31,6 @@ const inputDescProfile = editorProfileForm.querySelector(
 );
 
 const cardsElements = document.querySelector(".elements");
-const popupButtonsClose = document.querySelectorAll(".popup__close");
 
 const validatorEditorProfileForm = new FormValidator(
     validationConfig,
@@ -59,18 +58,6 @@ function resetForm(form) {
 function closePopup(popup) {
     document.removeEventListener("keydown", closePopupOnEscape);
     popup.classList.remove("popup_opened");
-
-    const form = popup.querySelector(".form");
-
-    switch (form && form.getAttribute("name")) {
-        case "addPlace":
-            validatorBuilderElementForm.disableValidation();
-            break;
-
-        case "editProfile":
-            validatorEditorProfileForm.disableValidation();
-            break;
-    }
 }
 
 function openPopup(popup) {
@@ -93,13 +80,13 @@ function openEditorProfile() {
     inputNameProfile.value = profileTitle.textContent;
     inputDescProfile.value = profileDesc.textContent;
 
-    validatorEditorProfileForm.enableValidation();
+    validatorEditorProfileForm.validateForm(true);
 }
 
 function openBuilderPopup() {
     openPopup(formBuilderElement);
 
-    validatorBuilderElementForm.enableValidation();
+    validatorBuilderElementForm.validateForm();
 }
 
 function viewPicture({ name, link }) {
@@ -109,15 +96,14 @@ function viewPicture({ name, link }) {
     openPopup(popupViewerPicture);
 }
 
-function initCloseButton(closeButton) {
-    const popup = closeButton.closest(".popup");
-    closeButton.addEventListener("click", () => closePopup(popup));
-}
-
 function setEventListenersPopup(popup) {
     popup.addEventListener("click", (evt) => {
-        if (evt.currentTarget === evt.target) {
-            closeOpenedPopup();
+        const targetClassList = evt.target.classList;
+        if (
+            targetClassList.contains("popup") ||
+            targetClassList.contains("popup__close")
+        ) {
+            closePopup(popup);
         }
     });
 }
@@ -150,7 +136,7 @@ function createCard(data) {
 }
 
 function renderCard(cardInfo) {
-    cardsElements.prepend(createCard(cardInfo));
+    cardsElements.append(createCard(cardInfo));
 }
 
 /** Функции обработки клавиш клавиатуры */
@@ -159,6 +145,13 @@ function closePopupOnEscape(evt) {
     if (evt.key == "Escape") {
         closeOpenedPopup();
     }
+}
+
+/** Включение валидации */
+
+function enableValidationForms() {
+    validatorEditorProfileForm.enableValidation();
+    validatorBuilderElementForm.enableValidation();
 }
 
 /**
@@ -173,7 +166,6 @@ builderElementForm.addEventListener("submit", submitBuilderElement);
  *  Инициализация страницы
  */
 
-initialCards.reverse().forEach(renderCard);
-popupButtonsClose.forEach(initCloseButton);
+initialCards.forEach(renderCard);
 popups.forEach(setEventListenersPopup);
-// enableValidationForms(validationConfig);
+enableValidationForms();
