@@ -1,4 +1,8 @@
 // @ts-nocheck
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import validationConfig from "./validatorConfig.js";
+
 const profileEditButton = document.querySelector(
     ".profile__button_action_edit"
 );
@@ -11,23 +15,32 @@ const formEditorProfile = document.querySelector(".popup_type_editor-profile");
 const formBuilderElement = document.querySelector(".popup_type_add-element");
 const popupViewerPicture = document.querySelector(".popup_type_view-image");
 const bigPicture = popupViewerPicture.querySelector(".popup__big-picture");
-const bigPictureImageDesc = popupViewerPicture.querySelector(".popup__picture-desc");
+const bigPictureImageDesc = popupViewerPicture.querySelector(
+    ".popup__picture-desc"
+);
 
 const { forms } = document;
 const editorProfileForm = forms.editProfile;
 const builderElementForm = forms.addPlace;
 
-const inputNameProfile = document.querySelector(".form__input_type_name");
-const inputDescProfile = document.querySelector(".form__input_type_desc");
-const inputNamePlace = document.querySelector(".form__input_type_title-place");
-const inputUrlPlace = document.querySelector(".form__input_type_url-place");
+const inputNameProfile = editorProfileForm.querySelector(
+    ".form__input_type_name"
+);
+const inputDescProfile = editorProfileForm.querySelector(
+    ".form__input_type_desc"
+);
 
 const cardsElements = document.querySelector(".elements");
 const popupButtonsClose = document.querySelectorAll(".popup__close");
 
-const templateCard = document
-    .querySelector("#element-template")
-    .content.querySelector(".element");
+const validatorEditorProfileForm = new FormValidator(
+    validationConfig,
+    editorProfileForm
+);
+const validatorBuilderElementForm = new FormValidator(
+    validationConfig,
+    builderElementForm
+);
 
 /**
  * Функции
@@ -44,8 +57,20 @@ function resetForm(form) {
 }
 
 function closePopup(popup) {
-    document.removeEventListener("keydown", closePopupOnEscape)
+    document.removeEventListener("keydown", closePopupOnEscape);
     popup.classList.remove("popup_opened");
+
+    const form = popup.querySelector(".form");
+
+    switch (form && form.getAttribute("name")) {
+        case "addPlace":
+            validatorBuilderElementForm.disableValidation();
+            break;
+
+        case "editProfile":
+            validatorEditorProfileForm.disableValidation();
+            break;
+    }
 }
 
 function openPopup(popup) {
@@ -67,11 +92,14 @@ function openEditorProfile() {
 
     inputNameProfile.value = profileTitle.textContent;
     inputDescProfile.value = profileDesc.textContent;
+
+    validatorEditorProfileForm.enableValidation();
 }
 
 function openBuilderPopup() {
     openPopup(formBuilderElement);
-    disableSubmitButton(builderElementForm, validatorConfig);
+
+    validatorBuilderElementForm.enableValidation();
 }
 
 function viewPicture({ name, link }) {
@@ -116,26 +144,9 @@ function submitBuilderElement(e) {
 
 /** Карточки */
 
-function createCard({ name, link }) {
-    const element = templateCard.cloneNode(true);
-    const image = element.querySelector(".element__image");
-    const title = element.querySelector(".element__title");
-    const like = element.querySelector(".element__like");
-
-    image.src = link;
-    title.textContent = image.alt = name;
-
-    element
-        .querySelector(".element__delete")
-        .addEventListener("click", () => element.remove());
-
-    like.addEventListener("click", () =>
-        like.classList.toggle("element__like_active")
-    );
-
-    image.addEventListener("click", () => viewPicture({ name, link }));
-
-    return element;
+function createCard(data) {
+    const card = new Card(data, "#element-template", viewPicture);
+    return card.generateCard();
 }
 
 function renderCard(cardInfo) {
@@ -165,3 +176,4 @@ builderElementForm.addEventListener("submit", submitBuilderElement);
 initialCards.reverse().forEach(renderCard);
 popupButtonsClose.forEach(initCloseButton);
 popups.forEach(setEventListenersPopup);
+// enableValidationForms(validationConfig);
