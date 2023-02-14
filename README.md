@@ -7,6 +7,7 @@
 - HTML
 - CSS (Flex-Box, Animations)
 - JavaScript
+- Webpack
 
 ## Планы на проект
 - Сделать многострочный сайт;
