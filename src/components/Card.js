@@ -12,7 +12,7 @@ class Card {
       .querySelector(".element__delete")
       .addEventListener("click", this._handleDeleteCard);
 
-    this._likeElement.addEventListener("click", this._handleToggleLikeCard);
+    this._likeElement.addEventListener("click", this._handleToggleLikeCard.bind(this));
     this._imageElement.addEventListener("click", this._handleImageClick);
   }
 
