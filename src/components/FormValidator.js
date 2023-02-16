@@ -6,6 +6,9 @@ class FormValidator {
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._config.formInputSelector)
     );
+    this._submitButton = this._formElement.querySelector(
+      this._config.formSubmitSelector
+    );
   }
 
   _showInputError() {
@@ -24,10 +27,14 @@ class FormValidator {
     this._inputElement.classList.remove(formInputInvalidClass);
   }
 
-  _checkInputValidation() {
+  _getErrorElement() {
     this._errorElement = this._formElement.querySelector(
       `.${this._inputElement.id}-error`
     );
+  }
+
+  _checkInputValidation() {
+    this._getErrorElement();
 
     return this._inputElement.validity.valid
       ? this._hideInputError()
@@ -49,10 +56,6 @@ class FormValidator {
   }
 
   _toggleSubmitButton() {
-    this._submitButton = this._formElement.querySelector(
-      this._config.formSubmitSelector
-    );
-
     return this._checkInputs()
       ? this._disableSubmitButton()
       : this._enableSubmitButton();
@@ -86,6 +89,15 @@ class FormValidator {
     this._inputList.forEach(this._handleInputField.bind(this));
 
     this._validateInputs = true;
+  }
+
+  hideErrors() {
+    this._inputList.forEach((formInput) => {
+      this._inputElement = formInput;
+      this._getErrorElement();
+      this._hideInputError();
+    });
+    this._toggleSubmitButton();
   }
 
   _validateFormElements() {

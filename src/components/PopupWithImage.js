@@ -25,8 +25,7 @@ export default class PopupWithImage extends Popup {
   }
 
   open() {
-    this.setEventListeners();
     this._changePictureData();
-    this.showPopup();
+    super.open();
   }
 }

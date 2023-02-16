@@ -4,11 +4,11 @@ export default class Popup {
     this._config = restConfig;
 
     this._handlerEscClose = this._handleEscClose.bind(this);
+    this._handlerCloseEvents = this._handleCloseEvents.bind(this);
   }
 
   _handleEscClose(evt) {
-    console.log("1");
-    if (evt.key == "Escape") return this.close();
+    if (evt.key === "Escape") return this.close();
   }
 
   _handleCloseEvents(evt) {
@@ -31,24 +31,14 @@ export default class Popup {
     this._container.classList.add(this._config.popupContainerActiveClass);
   }
 
-  handleCloseEvents() {
-    document.addEventListener("keydown", this._handlerEscClose);
-    this._container.addEventListener(
-      "click",
-      this._handleCloseEvents.bind(this)
-    );
-  }
-
   setEventListeners() {
-    this.handleCloseEvents();
+    document.addEventListener("keydown", this._handlerEscClose);
+    this._container.addEventListener("mousedown", this._handlerCloseEvents);
   }
 
   unsetEventListeners() {
     document.removeEventListener("keydown", this._handlerEscClose);
-    this._container.removeEventListener(
-      "click",
-      this._handleCloseEvents.bind(this)
-    );
+    this._container.removeEventListener("mousedown", this._handlerCloseEvents);
   }
 
   open() {

@@ -8,6 +8,7 @@ import PopupImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
+import Card from "../components/Card.js";
 
 import {
   validationConfig,
@@ -25,7 +26,6 @@ import {
   editProfileForm,
   addPlaceForm,
 } from "../utils/constants.js";
-import { createCard } from "../utils/utils.js";
 
 /**
  * instances of components
@@ -35,9 +35,7 @@ const sectionCards = new Section({
   items: initialCards,
   selector: ".elements",
   renderer: function (item) {
-    const card = createCard(item, handleImageCardClick);
-
-    this.addItem(card.generateCard());
+    this.addItem(createCard(item));
   },
 });
 
@@ -77,6 +75,18 @@ const validationAddPlaceForm = new FormValidator({
   formElement: addPlaceForm,
 });
 
+// Auxiliary functions
+
+function createCard(item) {
+  const card = new Card({
+    ...item,
+    template: "#element-template",
+    handleImageClick: handleImageCardClick,
+  });
+
+  return card.generateCard();
+}
+
 // Handlers
 
 function handleImageCardClick({ name, link }) {
@@ -98,6 +108,7 @@ function handleProfileEditButtonClick(evt) {
 function handleElementBuilderButtonClick() {
   popupFormBuilderCards.open();
   validationAddPlaceForm.validateForm();
+  validationAddPlaceForm.hideErrors();
 }
 
 // Submits forms
@@ -108,8 +119,7 @@ function submitEditProfileForm(item) {
 }
 
 function submitBuilderElementsForm(item) {
-  const card = createCard(item, handleImageCardClick);
-  sectionCards.addItem(card.generateCard());
+  sectionCards.addItem(createCard(item));
   this.close();
 }
 
@@ -119,6 +129,6 @@ profileEditButton.addEventListener("click", handleProfileEditButtonClick);
 profileAddButton.addEventListener("click", handleElementBuilderButtonClick);
 
 // Init page
-sectionCards.renderItems();
+sectionCards.renderItems(initialCards);
 validationAddPlaceForm.enableValidation();
 validatonEditProfileForm.enableValidation();

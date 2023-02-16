@@ -10,9 +10,12 @@ class Card {
   _setEventListeners() {
     this._element
       .querySelector(".element__delete")
-      .addEventListener("click", this._handleDeleteCard);
+      .addEventListener("click", () => this._handleDeleteCard(this._element));
 
-    this._likeElement.addEventListener("click", this._handleToggleLikeCard.bind(this));
+    this._likeElement.addEventListener(
+      "click",
+      this._handleToggleLikeCard.bind(this)
+    );
     this._imageElement.addEventListener("click", this._handleImageClick);
   }
 
@@ -38,8 +41,8 @@ class Card {
       .cloneNode(true);
   }
 
-  _handleDeleteCard() {
-    this._element.remove();
+  _handleDeleteCard(element) {
+    element.remove();
   }
 
   _handleToggleLikeCard() {
