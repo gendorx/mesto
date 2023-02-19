@@ -1,5 +1,5 @@
 // @ts-nocheck
-import "../pages/index.css";
+import "./index.css";
 
 /** Components */
 
