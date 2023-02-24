@@ -1,4 +1,4 @@
-.form__submit {
+.popup__submit {
     background-color: #000;
     border-radius: 2px;
     color: #fff;
@@ -12,12 +12,12 @@
     transition: opacity linear 0.1s;
 }
 
-.form__submit:not(.form__submit_disabled):hover {
+.popup__submit:not(.popup__submit_disabled):hover {
     opacity: 0.8;
 }
 
 @media screen and (max-width: 879px) {
-    .form__submit {
+    .popup__submit {
         font-size: 14px;
         line-height: 17px;
         margin-top: 47px;

@@ -1,177 +1,203 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Mesto</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
 
-        <!-- Scripts -->
-    </head>
-    <body class="root">
-        <div class="page">
-            <header class="header">
-                <img
-                    class="header__logo"
-                    src="<%=require('./images/header-logo.svg')%>"
-                    alt="Местро"
-                />
-            </header>
+    <!-- Scripts -->
+  </head>
+  <body class="root">
+    <div class="page">
+      <header class="header">
+        <img
+          class="header__logo"
+          src="<%=require('./images/header-logo.svg')%>"
+          alt="Местро"
+        />
+      </header>
 
-            <main class="content">
-                <section class="profile">
-                    <div class="profile__container">
-                        <img
-                            class="profile__photo"
-                            src="<%=require('./images/profile-photo.png')%>"
-                            alt="Фотография профиля"
-                        />
-                        <div class="profile__info">
-                            <div class="profile__heading-container">
-                                <h1 class="profile__heading">Жак-Ив Кусто</h1>
-                                <button
-                                    type="button"
-                                    class="profile__button button-icon button-icon_type_edit profile__button_action_edit"
-                                ></button>
-                            </div>
-                            <p class="profile__desc">Исследователь океана</p>
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        class="profile__button button-icon button-icon_type_add profile__button_action_add"
-                    ></button>
-                </section>
-
-                <section class="elements">
-                </section>
-            </main>
-
-            <footer class="footer">
-                <p class="footer__copyright">© 2020 Mesto Russia</p>
-            </footer>
-        </div>
-        <div class="popup popup_type_editor-profile">
-            <div class="popup__container">
-                <button
-                    class="popup__close button-icon button-icon_type_close"
-                ></button>
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="form" name="editProfile" novalidate>
-                    <label class="form__field" for="editProfile-name">
-                        <input
-                            id="editProfile-name"
-                            name="name"
-                            class="form__input form__input_type_name"
-                            type="text"
-                            required
-                            placeholder="Имя"
-                            minlength="2"
-                            maxlength="40"
-                        />
-
-                        <span
-                            class="editProfile-name-error form__input-error"
-                        ></span>
-                    </label>
-
-                    <label class="form__field" for="editProfile-about">
-                        <input
-                            id="editProfile-about"
-                            name="about"
-                            class="form__input form__input_type_desc"
-                            type="text"
-                            required
-                            placeholder="О себе"
-                            minlength="2"
-                            maxlength="200"
-                        />
-
-                        <span
-                            class="editProfile-about-error form__input-error"
-                        ></span>
-                    </label>
-
-                    <button class="form__submit" type="submit">
-                        Сохранить
-                    </button>
-                </form>
+      <main class="content">
+        <section class="profile">
+          <div class="profile__container">
+            <div class="profile__photo-container">
+              <img
+                class="profile__photo"
+                src="<%=require('./images/profile-photo.png')%>"
+                alt="Фотография профиля"
+              />
+              <div class="profile__photo-edit"></div>
             </div>
-        </div>
-        <div class="popup popup_type_add-element">
-            <div class="popup__container">
+            <div class="profile__info">
+              <div class="profile__heading-container">
+                <h1 class="profile__heading">Жак-Ив Кусто</h1>
                 <button
-                    class="popup__close button-icon button-icon_type_close"
+                  type="button"
+                  class="profile__button button-icon button-icon_type_edit profile__button_action_edit"
                 ></button>
-                <h2 class="popup__title">Новое место</h2>
-                <form class="form" name="addPlace" novalidate>
-                    <label class="form__field" for="addPlace-name">
-                        <input
-                            id="addPlace-name"
-                            name="name"
-                            class="form__input form__input_type_title-place"
-                            type="text"
-                            required
-                            placeholder="Название"
-                            minlength="2"
-                            maxlength="30"
-                        />
-
-                        <span
-                            class="addPlace-name-error form__input-error"
-                        ></span>
-                    </label>
-
-                    <label class="form__field" for="addPlace-link">
-                        <input
-                            id="addPlace-link"
-                            name="link"
-                            class="form__input form__input_type_url-place"
-                            type="url"
-                            required
-                            placeholder="Ссылка на картинку"
-                        />
-
-                        <span
-                            class="addPlace-link-error form__input-error"
-                        ></span>
-                    </label>
-
-                    <button class="form__submit" type="submit">Создать</button>
-                </form>
+              </div>
+              <p class="profile__desc">Исследователь океана</p>
             </div>
+          </div>
+          <button
+            type="button"
+            class="profile__button button-icon button-icon_type_add profile__button_action_add"
+          ></button>
+        </section>
+
+        <section class="elements"></section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">© 2020 Mesto Russia</p>
+      </footer>
+    </div>
+    <div class="popup popup_type_editor-profile">
+      <div class="popup__container">
+        <button
+          class="popup__close button-icon button-icon_type_close"
+        ></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="form" name="editProfile" novalidate>
+          <label class="form__field" for="editProfile-name">
+            <input
+              id="editProfile-name"
+              name="name"
+              class="form__input form__input_type_name"
+              type="text"
+              required
+              placeholder="Имя"
+              minlength="2"
+              maxlength="40"
+            />
+
+            <span class="editProfile-name-error form__input-error"></span>
+          </label>
+
+          <label class="form__field" for="editProfile-about">
+            <input
+              id="editProfile-about"
+              name="about"
+              class="form__input form__input_type_desc"
+              type="text"
+              required
+              placeholder="О себе"
+              minlength="2"
+              maxlength="200"
+            />
+
+            <span class="editProfile-about-error form__input-error"></span>
+          </label>
+
+          <button class="popup__submit" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_add-element">
+      <div class="popup__container">
+        <button
+          class="popup__close button-icon button-icon_type_close"
+        ></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="form" name="addPlace" novalidate>
+          <label class="form__field" for="addPlace-name">
+            <input
+              id="addPlace-name"
+              name="name"
+              class="form__input form__input_type_title-place"
+              type="text"
+              required
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+            />
+
+            <span class="addPlace-name-error form__input-error"></span>
+          </label>
+
+          <label class="form__field" for="addPlace-link">
+            <input
+              id="addPlace-link"
+              name="link"
+              class="form__input form__input_type_url-place"
+              type="url"
+              required
+              placeholder="Ссылка на картинку"
+            />
+
+            <span class="addPlace-link-error form__input-error"></span>
+          </label>
+
+          <button class="popup__submit" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_view-image">
+      <figure class="popup__image-container">
+        <button
+          class="popup__close button-icon button-icon_type_close"
+        ></button>
+        <img class="popup__big-picture" src="#" alt="#" />
+        <figcaption class="popup__picture-desc"></figcaption>
+      </figure>
+    </div>
+
+    <div class="popup popup_type_edit-photo">
+      <div class="popup__container">
+        <button
+          class="popup__close button-icon button-icon_type_close"
+        ></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="form" name="editPhotoProfile" novalidate>
+          <label class="form__field" for="editPhotoProfile-avatar">
+            <input
+              id="editProfile-avatar"
+              name="avatar"
+              class="form__input form__input_type_url"
+              type="url"
+              required
+              placeholder="Ссылка на фотографию"
+            />
+
+            <span class="editProfile-avatar-error form__input-error"></span>
+          </label>
+
+          <button class="popup__submit" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_confirm">
+      <div class="popup__container">
+        <button
+          class="popup__close button-icon button-icon_type_close"
+        ></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="form" name="popupConfirm" novalidate>
+          <input type="hidden" name="cardId" id="formConfirm_id">
+          <button class="popup__submit" type="submit">Да</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Templates -->
+
+    <template id="element-template">
+      <article class="element">
+        <button
+          class="element__delete button-icon button-icon_type_delete"
+        ></button>
+        <img src="#" alt="Изображение города" class="element__image" />
+        <div class="element__group">
+          <h2 class="element__title"></h2>
+          <div class="element__like-group">
+            <button type="button" class="element__like"></button>
+            <span class="element__likes-count">0</span>
+          </div>
         </div>
-
-        <div class="popup popup_type_view-image">
-            <figure class="popup__image-container">
-                <button
-                    class="popup__close button-icon button-icon_type_close"
-                ></button>
-                <img class="popup__big-picture" src="#" alt="#" />
-                <figcaption class="popup__picture-desc"></figcaption>
-            </figure>
-        </div>
-
-        <!-- Templates -->
-
-        <template id="element-template">
-            <article class="element">
-                <button
-                    class="element__delete button-icon button-icon_type_delete"
-                ></button>
-                <img
-                    src="#"
-                    alt="Изображение города"
-                    class="element__image"
-                />
-                <div class="element__group">
-                    <h2 class="element__title"></h2>
-                    <button
-                        type="button"
-                        class="element__like"
-                    ></button>
-                </div>
-            </article>
-        </template>
-    </body>
+      </article>
+    </template>
+  </body>
 </html>

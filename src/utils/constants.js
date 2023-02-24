@@ -1,39 +1,10 @@
-/** List of card */
-
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 /** config for validation forms */
 
 export const validationConfig = {
   formInputSelector: ".form__input",
   formInputInvalidClass: "form__input_invalid",
-  formSubmitSelector: ".form__submit",
-  formSubmitInactiveClass: "form__submit_disabled",
+  formSubmitSelector: ".popup__submit",
+  formSubmitInactiveClass: "popup__submit_disabled",
   formErrorActiveClass: "form__input-error_show",
 };
 
@@ -48,25 +19,52 @@ export const popupConfig = {
   popupBigAboutSelector: ".popup__picture-desc",
 };
 
+/** config for api */
+
+export const apiConfig = {
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
+  headers: {
+    authorization: "3c12d929-d321-40f7-9ea5-47a9cc856981",
+    "Content-Type": "application/json",
+  },
+};
+
 /**
  *  Constants
  */
 
 /** Profile constants */
-export const profileNameElement = document.querySelector(".profile__heading");
-export const profileAboutElement = document.querySelector(".profile__desc");
-export const profileEditButton = document.querySelector(
+const profileElement = document.querySelector(".profile");
+
+export const profileNameElement =
+  profileElement.querySelector(".profile__heading");
+export const profileAboutElement =
+  profileElement.querySelector(".profile__desc");
+export const profileEditButton = profileElement.querySelector(
   ".profile__button_action_edit"
 );
-export const profileAddButton = document.querySelector(
+export const profileAddButton = profileElement.querySelector(
   ".profile__button_action_add"
 );
+export const profileEditPhotoButton = profileElement.querySelector(
+  ".profile__photo-edit"
+);
+export const profileAvatarElement =
+  profileElement.querySelector(".profile__photo");
 
 /** Forms constants */
 const { forms } = document;
 
-export const addPlaceForm = forms.addPlace;
-export const editProfileForm = forms.editProfile;
+// export const addPlaceForm = forms.addPlace;
+// export const editProfileForm = forms.editProfile;
+// export const editProfilePhotoForm = forms.
+
+export const {
+  addPlace: addPlaceForm,
+  editProfile: editProfileForm,
+  editPhotoProfile: editProfilePhotoForm,
+  popupConfirm: formConfirm
+} = forms;
 
 /** Popup constants */
 export const popupEditProfile = document.querySelector(
@@ -84,3 +82,10 @@ export const popupBuilderElements = document.querySelector(
 export const popupViewerPicture = document.querySelector(
   ".popup_type_view-image"
 );
+export const popupEditProfilePhoto = document.querySelector(
+  ".popup_type_edit-photo"
+);
+export const popupEditProfilePhotoAvatarInput =
+  editProfilePhotoForm.querySelector(".form__input_type_url");
+
+export const popupConfirm = document.querySelector(".popup_type_confirm");
