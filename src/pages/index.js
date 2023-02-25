@@ -195,7 +195,7 @@ async function submitBuilderElementsForm(item) {
   this.renderLoading(true);
 
   try {
-    await api.addCard(item);
+    const card = await api.addCard(item);
     sectionCards.addItem(createCard(card));
     this.close();
   } catch (error) {
