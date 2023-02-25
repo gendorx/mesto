@@ -9,6 +9,7 @@ class Card {
     handleLikeClick,
     handleDeleteCard,
     userId,
+    owner,
   }) {
     this._templateSelector = template;
     this._handleImageClick = () => handleImageClick({ name, link });
@@ -18,15 +19,17 @@ class Card {
     this._link = link;
     this._likes = likes;
     this._userId = userId;
+    this._ownerId = owner._id;
 
     this._handlerLikeClick = handleLikeClick.bind(this);
     this._handlerDeleteCard = handleDeleteCard.bind(this);
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".element__delete")
-      .addEventListener("click", this._handlerDeleteCard);
+    this._buttonDeleteElement.addEventListener(
+      "click",
+      this._handlerDeleteCard
+    );
 
     this._likeElement.addEventListener("click", () =>
       this._handlerLikeClick(this._userLiked())
@@ -41,6 +44,11 @@ class Card {
     this._likesCountElement = this._element.querySelector(
       ".element__likes-count"
     );
+    this._buttonDeleteElement = this._element.querySelector(".element__delete");
+
+    if (this._ownerId !== this._userId) {
+      this._buttonDeleteElement.remove();
+    }
 
     this._setEventListeners();
     this._isLiked();

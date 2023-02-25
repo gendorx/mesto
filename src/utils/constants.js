@@ -17,6 +17,8 @@ export const popupConfig = {
   popupFormSelector: ".form",
   popupBigPictureSelector: ".popup__big-picture",
   popupBigAboutSelector: ".popup__picture-desc",
+  inputSelector: ".form__input",
+  submitSelector: ".popup__submit",
 };
 
 /** config for api */
@@ -63,18 +65,12 @@ export const {
   addPlace: addPlaceForm,
   editProfile: editProfileForm,
   editPhotoProfile: editProfilePhotoForm,
-  popupConfirm: formConfirm
+  popupConfirm: formConfirm,
 } = forms;
 
 /** Popup constants */
 export const popupEditProfile = document.querySelector(
   ".popup_type_editor-profile"
-);
-export const popupEditProfileNameInput = editProfileForm.querySelector(
-  ".form__input_type_name"
-);
-export const popupEditProfileAboutInput = editProfileForm.querySelector(
-  ".form__input_type_desc"
 );
 export const popupBuilderElements = document.querySelector(
   ".popup_type_add-element"
@@ -85,7 +81,4 @@ export const popupViewerPicture = document.querySelector(
 export const popupEditProfilePhoto = document.querySelector(
   ".popup_type_edit-photo"
 );
-export const popupEditProfilePhotoAvatarInput =
-  editProfilePhotoForm.querySelector(".form__input_type_url");
-
 export const popupConfirm = document.querySelector(".popup_type_confirm");

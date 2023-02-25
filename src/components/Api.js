@@ -1,7 +1,9 @@
 export default class Api {
-  constructor({ baseUrl, ...options }) {
+  constructor({ baseUrl, handleApiError, ...options }) {
     this._baseUrl = baseUrl;
     this._options = options;
+
+    this._handleApiError = handleApiError;
   }
 
   getInitialCards() {
@@ -28,16 +30,15 @@ export default class Api {
 
   addLikeCard(cardId) {
     return this.sendRequest(`/cards/${cardId}/likes`, {
-      method: "PUT"
-    })
+      method: "PUT",
+    });
   }
 
   removeLikeCard(cardId) {
     return this.sendRequest(`/cards/${cardId}/likes`, {
-      method: "DELETE"
-    })
+      method: "DELETE",
+    });
   }
-
 
   removeCard(id) {
     return this.sendRequest(`/cards/${id}`, {
@@ -59,8 +60,14 @@ export default class Api {
       ...opts,
     });
 
-    if (!response.ok) throw response.status;
+    try {
+      const data = await response.json();
 
-    return response.json();
+      if (response.ok) return data;
+
+      this._handleApiError(data);
+    } catch (err) {
+      this._handleApiError(response.status);
+    }
   }
 }

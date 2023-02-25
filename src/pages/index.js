@@ -21,8 +21,6 @@ import {
   popupEditProfile,
   popupBuilderElements,
   popupViewerPicture,
-  popupEditProfileNameInput,
-  popupEditProfileAboutInput,
   profileAddButton,
   editProfileForm,
   addPlaceForm,
@@ -30,7 +28,6 @@ import {
   profileAvatarElement,
   profileEditPhotoButton,
   popupEditProfilePhoto,
-  popupEditProfilePhotoAvatarInput,
   editProfilePhotoForm,
   popupConfirm,
 } from "../utils/constants.js";
@@ -83,7 +80,10 @@ const popupConfirmAction = new PopupConfirm({
   submitForm: submitFormConfirmDeletionCard,
 });
 
-const api = new Api(apiConfig);
+const api = new Api({
+  ...apiConfig,
+  handleApiError: handleApiResponse,
+});
 
 /**
  *  Instances validations of forms
@@ -121,6 +121,10 @@ function createCard(item) {
 
 // Handlers
 
+async function handleApiResponse(err) {
+  alert(`Ошибка: ${typeof err == "object" ? err.message : err}`);
+}
+
 function handleImageCardClick({ name, link }) {
   popupImage.setData({ description: name, urlImage: link });
   popupImage.open();
@@ -140,6 +144,8 @@ async function handleLikeCardClick(isActive) {
     this.like();
   }
 
+  if (!response) return;
+
   this.updateLikesCount(response.likes.length);
 }
 
@@ -147,15 +153,19 @@ function handleProfileEditButtonClick(evt) {
   evt.preventDefault();
   const { name, about } = userInfo.getUserInfo();
 
-  popupEditProfileNameInput.value = name;
-  popupEditProfileAboutInput.value = about;
+  popupFormEditProfile.setInputValues({
+    name,
+    about,
+  });
 
   popupFormEditProfile.open();
   validatonEditProfileForm.validateForm(false);
 }
 
 function handleProfilePhotoEditButtonClick() {
-  popupEditProfilePhotoAvatarInput.value = userInfo.getPhoto();
+  popupEditPhotoProfile.setInputValues({
+    avatar: userInfo.getPhoto(),
+  });
 
   popupEditPhotoProfile.open();
 }
@@ -169,25 +179,35 @@ function handleElementBuilderButtonClick() {
 // Submits forms
 
 async function submitEditProfileForm(item) {
-  await api.setUserInfo(item);
+  this.renderLoading(true);
+  let data = await api.setUserInfo(item);
+  this.renderLoading(false);
+  if (!data) return;
   userInfo.setUserInfo(item);
   this.close();
 }
 
 async function submitBuilderElementsForm(item) {
+  this.renderLoading(true);
   const card = await api.addCard(item);
+  this.renderLoading(false);
+  if (!card) return;
   sectionCards.addItem(createCard(card));
   this.close();
 }
 
 async function submitEditProfilePhotoForm({ avatar }) {
-  await api.setProfilePhoto(avatar);
+  this.renderLoading(true);
+  const data = await api.setProfilePhoto(avatar);
+  this.renderLoading(false);
+  if (!data) return;
   userInfo.setPhoto(avatar);
   this.close();
 }
 
 async function submitFormConfirmDeletionCard(context) {
-  await api.removeCard(context._id);
+  const ok = await api.removeCard(context._id);
+  if (!ok) return;
   context.remove();
   this.close();
 }
@@ -199,6 +219,8 @@ async function getDataServer() {
     api.getInitialCards(),
     api.getProfileInfo(),
   ]);
+
+  if (!cards || !profile) return;
 
   userId = profile._id;
 
