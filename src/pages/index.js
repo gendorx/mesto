@@ -80,10 +80,7 @@ const popupConfirmAction = new PopupConfirm({
   submitForm: submitFormConfirmDeletionCard,
 });
 
-const api = new Api({
-  ...apiConfig,
-  handleApiError: handleApiResponse,
-});
+const api = new Api(apiConfig);
 
 /**
  *  Instances validations of forms
@@ -121,8 +118,8 @@ function createCard(item) {
 
 // Handlers
 
-async function handleApiResponse(err) {
-  alert(`Ошибка: ${typeof err == "object" ? err.message : err}`);
+async function handleApiResponse(errStatus) {
+  alert(`Ошибка: ${errStatus}`);
 }
 
 function handleImageCardClick({ name, link }) {
@@ -136,17 +133,20 @@ function handleDeleteCardClick() {
 
 async function handleLikeCardClick(isActive) {
   let response;
-  if (isActive) {
-    response = await api.removeLikeCard(this._id);
-    this.unlike();
-  } else {
-    response = await api.addLikeCard(this._id);
-    this.like();
+
+  try {
+    if (isActive) {
+      response = await api.removeLikeCard(this._id);
+      this.unlike();
+    } else {
+      response = await api.addLikeCard(this._id);
+      this.like();
+    }
+
+    this.updateLikesCount(response.likes.length);
+  } catch (err) {
+    handleApiResponse(err);
   }
-
-  if (!response) return;
-
-  this.updateLikesCount(response.likes.length);
 }
 
 function handleProfileEditButtonClick(evt) {
@@ -180,52 +180,69 @@ function handleElementBuilderButtonClick() {
 
 async function submitEditProfileForm(item) {
   this.renderLoading(true);
-  let data = await api.setUserInfo(item);
-  this.renderLoading(false);
-  if (!data) return;
-  userInfo.setUserInfo(item);
-  this.close();
+  try {
+    await api.setUserInfo(item);
+    userInfo.setUserInfo(item);
+    this.close();
+  } catch (err) {
+    handleApiResponse(err);
+  } finally {
+    this.renderLoading(false);
+  }
 }
 
 async function submitBuilderElementsForm(item) {
   this.renderLoading(true);
-  const card = await api.addCard(item);
-  this.renderLoading(false);
-  if (!card) return;
-  sectionCards.addItem(createCard(card));
-  this.close();
+
+  try {
+    await api.addCard(item);
+    sectionCards.addItem(createCard(card));
+    this.close();
+  } catch (error) {
+    handleApiResponse(error);
+  } finally {
+    this.renderLoading(false);
+  }
 }
 
 async function submitEditProfilePhotoForm({ avatar }) {
   this.renderLoading(true);
-  const data = await api.setProfilePhoto(avatar);
-  this.renderLoading(false);
-  if (!data) return;
-  userInfo.setPhoto(avatar);
-  this.close();
+  try {
+    await api.setProfilePhoto(avatar);
+    userInfo.setPhoto(avatar);
+    this.close();
+  } catch (error) {
+    handleApiResponse(error);
+  } finally {
+    this.renderLoading(false);
+  }
 }
 
 async function submitFormConfirmDeletionCard(context) {
-  const ok = await api.removeCard(context._id);
-  if (!ok) return;
-  context.remove();
-  this.close();
+  try {
+    await api.removeCard(context._id);
+    context.remove();
+    this.close();
+  } catch (error) {
+    handleApiResponse(error);
+  }
 }
 
 // Get Data from server
 
 async function getDataServer() {
-  const [cards, profile] = await Promise.all([
-    api.getInitialCards(),
-    api.getProfileInfo(),
-  ]);
+  try {
+    const [cards, profile] = await Promise.all([
+      api.getInitialCards(),
+      api.getProfileInfo(),
+    ]);
+    userId = profile._id;
 
-  if (!cards || !profile) return;
-
-  userId = profile._id;
-
-  sectionCards.renderItems(cards.reverse());
-  userInfo.setFullInfo(profile);
+    sectionCards.renderItems(cards.reverse());
+    userInfo.setFullInfo(profile);
+  } catch (error) {
+    handleApiResponse(error);
+  }
 }
 
 // Events Handlers

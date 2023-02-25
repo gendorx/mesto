@@ -1,9 +1,7 @@
 export default class Api {
-  constructor({ baseUrl, handleApiError, ...options }) {
+  constructor({ baseUrl, ...options }) {
     this._baseUrl = baseUrl;
     this._options = options;
-
-    this._handleApiError = handleApiError;
   }
 
   getInitialCards() {
@@ -60,14 +58,8 @@ export default class Api {
       ...opts,
     });
 
-    try {
-      const data = await response.json();
+    if (!response.ok) throw response.status;
 
-      if (response.ok) return data;
-
-      this._handleApiError(data);
-    } catch (err) {
-      this._handleApiError(response.status);
-    }
+    return response.json();
   }
 }
